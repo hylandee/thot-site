@@ -3,6 +3,7 @@
 Example S3 static site setup using AWS CDK
 
 CDK creates the following:
+
 - S3 bucket with website assets
 - SSL Certificate
 - CloudFront Distribution

@@ -98,7 +98,7 @@ export class ThotSiteStack extends Stack {
     );
 
     new BucketDeployment(this, 'Website Deployment', {
-      sources: [Source.asset('./ui/')],
+      sources: [Source.asset('./public/')],
       destinationBucket: bucket,
       distribution,
       distributionPaths: ['/*'],
