@@ -1,6 +1,6 @@
 *.js
 !jest.config.js
-!ui/dist/index.js
+!public/**
 *.d.ts
 node_modules
 
