@@ -1,4 +1,4 @@
-import { RemovalPolicy, Stack, StackProps } from 'aws-cdk-lib';
+import { CfnOutput, RemovalPolicy, Stack, StackProps } from 'aws-cdk-lib';
 import {
   Certificate,
   CertificateValidation,
@@ -15,6 +15,13 @@ import { CanonicalUserPrincipal, PolicyStatement } from 'aws-cdk-lib/aws-iam';
 import { Bucket } from 'aws-cdk-lib/aws-s3';
 import { BucketDeployment, Source } from 'aws-cdk-lib/aws-s3-deployment';
 import { Construct } from 'constructs';
+import {
+  Code,
+  Function,
+  FunctionUrlAuthType,
+  Runtime,
+} from 'aws-cdk-lib/aws-lambda';
+import path = require('path');
 
 /**
  * Setup stolen from: https://dev.to/twilsoft/deploying-a-static-website-to-aws-with-an-external-domain-using-the-cdk-188d
@@ -102,6 +109,28 @@ export class ThotSiteStack extends Stack {
       destinationBucket: bucket,
       distribution,
       distributionPaths: ['/*'],
+    });
+
+    const handler = new Function(this, 'MyFunction', {
+      code: Code.fromAsset(
+        path.join(
+          __dirname,
+          '..',
+          'lambda/leader-lambda/target/lambda/leader-lambda',
+        ),
+      ),
+      runtime: Runtime.PROVIDED_AL2,
+      handler: 'does_not_matter',
+      functionName: 'rust-based-aws-lambda-example',
+    });
+
+    const fnUrl = handler.addFunctionUrl({
+      authType: FunctionUrlAuthType.NONE,
+    });
+
+    new CfnOutput(this, 'TheUrl', {
+      // The .url attributes will return the unique Function URL
+      value: fnUrl.url,
     });
   }
 }

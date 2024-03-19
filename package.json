@@ -5,12 +5,13 @@
     "thot-site": "bin/thot-site.js"
   },
   "scripts": {
-    "build": "tsc && prettier --write .",
+    "build": "tsc && prettier --write . && cd ./lambda/leader-lambda && cargo lambda build --release && cd ../..",
     "watch": "tsc -w",
     "test": "jest",
     "cdk": "cdk",
     "precommit": "pretty-quick --staged",
-    "prepare": "husky install .husky"
+    "prepare": "husky install .husky",
+    "deploy": "cdk synth && cdk deploy"
   },
   "devDependencies": {
     "@types/jest": "^29.5.8",
