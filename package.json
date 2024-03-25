@@ -7,6 +7,8 @@
   "scripts": {
     "build": "tsc && prettier --write . && cd ./lambda/leader-lambda && cargo lambda build --release && cd ../..",
     "watch": "tsc -w",
+    "build-lambda": "cd ./lambda/leader-lambda && cargo lambda build --release && cd ../..",
+    "start-lambda": "cd ./lambda/leader-lambda && cargo lambda start",
     "test": "jest",
     "cdk": "cdk",
     "precommit": "pretty-quick --staged",

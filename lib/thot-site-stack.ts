@@ -122,6 +122,7 @@ export class ThotSiteStack extends Stack {
       runtime: Runtime.PROVIDED_AL2,
       handler: 'does_not_matter',
       functionName: 'rust-based-aws-lambda-example',
+      reservedConcurrentExecutions: 1,
     });
 
     const fnUrl = handler.addFunctionUrl({
@@ -129,7 +130,6 @@ export class ThotSiteStack extends Stack {
     });
 
     new CfnOutput(this, 'TheUrl', {
-      // The .url attributes will return the unique Function URL
       value: fnUrl.url,
     });
   }

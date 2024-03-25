@@ -10,4 +10,27 @@ CDK creates the following:
 
 Live site can be seen here: https://thot-site.com
 
-...Hands on my knees selling ads on my thot site
+# Rust btw
+Now there is a rust lambda
+
+## Testing
+Building:
+```
+// Everything
+npm run build
+
+// Or just the the lambda
+npm run build-lambda
+```
+
+Spin up your lambda function locally:
+```
+npm run start-lambda
+```
+
+Visit http://localhost:9000/lambda-url/leader-lambda/
+
+## Deploying
+```
+npm run deploy
+```

@@ -7,6 +7,7 @@ async fn function_handler(event: Request) -> Result<Response<Body>, Error> {
         .and_then(|params| params.first("name"))
         .unwrap_or("world");
     let message = format!("Hello {who}, this is an AWS Lambda HTTP request baby!");
+    tracing::info!(message);
 
     // Return something that implements IntoResponse.
     // It will be serialized to the right response event automatically by the runtime
@@ -20,6 +21,5 @@ async fn function_handler(event: Request) -> Result<Response<Body>, Error> {
 #[tokio::main]
 async fn main() -> Result<(), Error> {
     tracing::init_default_subscriber();
-
     run(service_fn(function_handler)).await
 }
